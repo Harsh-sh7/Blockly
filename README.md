@@ -1,12 +1,39 @@
-# React + Vite
+# 🚗 React Leaflet Vehicle Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a dynamic vehicle tracking application built using **React**, **Leaflet**, and **OpenRouteService API**. It animates a vehicle icon along a route, allows you to pick ride dates, and displays road-snapped paths in real time.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 Preview
 
-## Expanding the ESLint configuration
+<img width="1280" alt="Screenshot 2025-04-16 at 3 40 34 AM" src="https://github.com/user-attachments/assets/e49400eb-22d3-474f-bb39-5bdab143f845" />
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Features
+
+- 🗺️ Interactive Leaflet map centered on India
+- 🚗 Animated vehicle icon with live direction
+- 📅 Ride date selection from dropdown
+- 🔁 Smooth fly-to effect to starting location on date selection
+- 🌐 Road-snapped routing using OpenRouteService
+- ⚛️ Modular React components
+
+---
+
+## 📦 Tech Stack
+
+- React
+- React Leaflet
+- Leaflet
+- OpenRouteService API
+- Tailwind CSS (for styling)
+
+---
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Harsh-sh7/vehicle-tracker.git
+npm install
+npm run dev
