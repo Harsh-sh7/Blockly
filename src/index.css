@@ -24,7 +24,7 @@ html, body, #root {
 }
 
 #map {
-  height: 100%; /* Ensure map container fills the entire screen */
+  height: 100%;
   width: 100%;
 }
 

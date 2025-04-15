@@ -1,27 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default function VehicleTracker({ routeCoords, setPosition, setAngle }) {
+export default function VehicleTracker({
+  routeCoords,
+  setPosition,
+  setAngle,
+  indexRef,  // Receive indexRef
+  play, // Assuming you have play state to control whether the vehicle moves
+}) {
+  const intervalRef = useRef(null);
+
   useEffect(() => {
-    if (routeCoords.length < 2) return;
+    if (!play || routeCoords.length < 2) {
+      clearInterval(intervalRef.current);
+      return;
+    }
 
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i + 1 >= routeCoords.length) {
-        clearInterval(interval);
+    intervalRef.current = setInterval(() => {
+      if (indexRef.current + 1 >= routeCoords.length) {
+        clearInterval(intervalRef.current);
         return;
       }
 
-      const curr = routeCoords[i];
-      const next = routeCoords[i + 1];
+      const curr = routeCoords[indexRef.current];
+      const next = routeCoords[indexRef.current + 1];
       const bearing = calculateBearing(curr[0], curr[1], next[0], next[1]);
 
-      setAngle(bearing);
-      setPosition(next);
-      i++;
-    }, 200);
+      setAngle(bearing);  // Update the angle
+      setPosition(next);  // Update the position
 
-    return () => clearInterval(interval);
-  }, [routeCoords]);
+      indexRef.current++;  // Increment the index
+    }, 200);  // Set the interval time to control the animation speed
+
+    return () => clearInterval(intervalRef.current); // Cleanup on component unmount
+  }, [play, routeCoords]);
 
   const calculateBearing = (lat1, lon1, lat2, lon2) => {
     const toRad = (deg) => (deg * Math.PI) / 180;

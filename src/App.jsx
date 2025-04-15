@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MapComponent from './components/MapComponent';
 import RideSelector from './components/RideSelector';
@@ -14,6 +14,10 @@ export default function App() {
   const [angle, setAngle] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const [mapRef, setMapRef] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [address, setAddress] = useState('Fetching address...'); 
+  const [play, setPlay] = useState(false); 
+  const indexRef = useRef(0); 
 
   const fetchRoute = async (start, end) => {
     try {
@@ -38,7 +42,7 @@ export default function App() {
         mapRef.flyTo(coords[0], 13);
       }
     } catch (err) {
-      console.error("Failed to fetch route:", err);
+      console.error('Failed to fetch route:', err);
     }
   };
 
@@ -50,6 +54,23 @@ export default function App() {
     }
   }, [selectedDate]);
 
+  const onMarkerClick = async () => {
+    setShowPopup(true);
+    try {
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position[0]}&lon=${position[1]}`
+      );
+      setAddress(response.data.display_name || 'Address not found');
+    } catch (error) {
+      setAddress('Failed to fetch address');
+      console.error('Reverse geocoding failed:', error);
+    }
+  };
+
+  const togglePlay = () => {
+    setPlay((prevState) => !prevState);
+  };
+
   return (
     <div className="relative h-screen w-screen">
       <MapComponent
@@ -57,18 +78,27 @@ export default function App() {
         currentPosition={position}
         angle={angle}
         setMapRef={setMapRef}
+        showPopup={showPopup}
+        onMarkerClick={onMarkerClick}
+        address={address}
       />
 
-      <RideSelector
-        dummyData={dummyData}
-        onSelectDate={setSelectedDate}
-      />
+      <RideSelector dummyData={dummyData} onSelectDate={setSelectedDate} />
 
       <VehicleTracker
         routeCoords={routeCoords}
         setPosition={setPosition}
         setAngle={setAngle}
+        indexRef={indexRef}
+        play={play}
       />
+
+      <button
+        onClick={togglePlay}
+        className="absolute bottom-4 left-4 z-[9999] bg-blue-600 text-white p-3 rounded-full"
+      >
+        {play ? 'Pause' : 'Play'}
+      </button>
     </div>
   );
 }
