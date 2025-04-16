@@ -93,6 +93,12 @@ export default function App() {
         play={play}
       />
 
+      <div className="absolute top-4 left-12 z-[9999] text-black bg-white p-3">
+        <h3><b>Instructions</b></h3>
+        <h3>1. Select any trip from Recent Trips.</h3>
+        <h3>2. Click on play</h3>
+      </div>
+
       <button
         onClick={togglePlay}
         className="absolute bottom-4 left-4 z-[9999] bg-blue-600 text-white p-3 rounded-full"
