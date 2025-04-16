@@ -6,7 +6,7 @@ This project is a dynamic vehicle tracking application built using **React**, **
 
 ## 📸 Preview
 
-<img width="1280" alt="Screenshot 2025-04-16 at 3 40 34 AM" src="https://github.com/user-attachments/assets/e49400eb-22d3-474f-bb39-5bdab143f845" />
+<img width="1278" alt="Screenshot 2025-04-16 at 4 21 52 AM" src="https://github.com/user-attachments/assets/4236e403-49cf-4e55-b4e0-c133cbcb5660" />
 
 ---
 
